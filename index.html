@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pill-ager</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="mainMenu">
+        <h1>Pill-ager</h1>
+        <button id="startButton">Start Game</button>
+        <div class="difficulty-container">
+            <button id="difficultyButton">Difficulty</button>
+            <div id="difficultyOptions" style="display: none;">
+                <button class="difficulty-option" data-difficulty="easy">Easy</button>
+                <button class="difficulty-option" data-difficulty="normal">Normal</button>
+                <button class="difficulty-option" data-difficulty="hard">Hard</button>
+            </div>
+        </div>
+        <button id="quitButton">Quit</button>
+    </div>
+    <canvas id="gameCanvas" style="display: none;"></canvas>
+    <script type="module" src="src/main.js"></script>
+</body>
+</html>
