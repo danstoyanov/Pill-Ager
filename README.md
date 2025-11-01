@@ -1,4 +1,4 @@
-![Pill-ager Banner](assets/pill-ager_banner.png)
+![Pill-ager Banner](assets/readme_files/pill-ager_banner.png)
 
 # Pill-ager
 
