@@ -16,6 +16,7 @@ let enemyEliteImage;
 let playerImage;
 let projectileImage;
 let powerUpImage;
+let backgroundImage;
 let enemies = [];
 let projectiles = [];
 let powerUps = [];
@@ -76,6 +77,7 @@ const imageName = {
     PLAYER: 2,
     PROJECTILE: 3,
     POWERUP: 4,
+    BACKGROUND: 5,
 }
 
 function initializeGame(images) {
@@ -84,6 +86,7 @@ function initializeGame(images) {
     playerImage = images[imageName.PLAYER];
     projectileImage = images[imageName.PROJECTILE];
     powerUpImage = images[imageName.POWERUP];
+    backgroundImage = images[imageName.BACKGROUND];
     player = new Player(canvas, playerImage);
     startButton.disabled = false;
 }
@@ -94,6 +97,7 @@ preloadImages([
     'assets/player.png',
     'assets/projectile.png',
     'assets/powerup_tripleshot.png',
+    'assets/main_background.png',
 ], initializeGame);
 
 function setDifficulty(newDifficulty) {
@@ -190,6 +194,8 @@ function shoot() {
 function update() {
     if (gameState === 'playing') {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
 
         player.update();
         player.draw(ctx);
