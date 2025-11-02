@@ -1,11 +1,11 @@
 export default class Player {
-    constructor(canvas) {
+    constructor(canvas, image) {
         this.canvas = canvas;
+        this.image = image;
         this.x = this.canvas.width / 2;
         this.y = this.canvas.height / 2;
-        this.width = 20;
-        this.height = 20;
-        this.color = 'blue';
+        this.width = 50;
+        this.height = 50;
         this.speed = 5;
         this.dx = 0;
         this.dy = 0;
@@ -21,8 +21,7 @@ export default class Player {
     }
 
     draw(ctx) {
-        ctx.fillStyle = this.color;
-        ctx.fillRect(this.x, this.y, this.width, this.height);
+        ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
     }
 
     update() {

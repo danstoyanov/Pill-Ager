@@ -9,10 +9,13 @@ const ctx = canvas.getContext('2d');
 canvas.width = 800;
 canvas.height = 600;
 
-const player = new Player(canvas);
+let player;
 
 let enemyStandardImage;
 let enemyEliteImage;
+let playerImage;
+let projectileImage;
+let powerUpImage;
 let enemies = [];
 let projectiles = [];
 let powerUps = [];
@@ -70,17 +73,27 @@ function preloadImages(urls, callback) {
 const imageName = {
     ENEMY_STANDARD: 0,
     ENEMY_ELITE: 1,
+    PLAYER: 2,
+    PROJECTILE: 3,
+    POWERUP: 4,
 }
 
 function initializeGame(images) {
     enemyStandardImage = images[imageName.ENEMY_STANDARD];
     enemyEliteImage = images[imageName.ENEMY_ELITE];
+    playerImage = images[imageName.PLAYER];
+    projectileImage = images[imageName.PROJECTILE];
+    powerUpImage = images[imageName.POWERUP];
+    player = new Player(canvas, playerImage);
     startButton.disabled = false;
 }
 
 preloadImages([
     'assets/enemy_standard.png',
     'assets/enemy_elite.png',
+    'assets/player.png',
+    'assets/projectile.png',
+    'assets/powerup_tripleshot.png',
 ], initializeGame);
 
 function setDifficulty(newDifficulty) {
@@ -114,7 +127,7 @@ function startGame() {
 }
 
 function spawnEnemy() {
-    const size = 20;
+    const size = 50;
     let x, y;
     let health, color;
 
@@ -163,13 +176,13 @@ function shoot() {
 
         for (let i = -1; i <= 1; i++) {
             const spreadAngle = angle + (i * Math.PI / 16);
-            projectiles.push(new Projectile(player.x + player.width / 2, player.y + player.height / 2, Math.cos(spreadAngle) * bulletSpeed, Math.sin(spreadAngle) * bulletSpeed));
+            projectiles.push(new Projectile(player.x + player.width / 2, player.y + player.height / 2, Math.cos(spreadAngle) * bulletSpeed, Math.sin(spreadAngle) * bulletSpeed, projectileImage));
         }
     } else {
         const numBullets = 8;
         for (let i = 0; i < numBullets; i++) {
             const angle = (i / numBullets) * Math.PI * 2;
-            projectiles.push(new Projectile(player.x + player.width / 2, player.y + player.height / 2, Math.cos(angle) * bulletSpeed, Math.sin(angle) * bulletSpeed));
+            projectiles.push(new Projectile(player.x + player.width / 2, player.y + player.height / 2, Math.cos(angle) * bulletSpeed, Math.sin(angle) * bulletSpeed, projectileImage));
         }
     }
 }
@@ -247,7 +260,7 @@ function detectCollision() {
 
                 if (enemy.health <= 0) {
                     if (enemy.color === 'purple') {
-                        powerUps.push(new PowerUp(enemy.x, enemy.y, 'tripleShot'));
+                        powerUps.push(new PowerUp(enemy.x, enemy.y, 'tripleShot', powerUpImage));
                     }
                     experienceGems.push({ x: enemy.x, y: enemy.y, width: 10, height: 10, color: 'lime' });
                     enemies.splice(enemyIndex, 1);
@@ -271,9 +284,9 @@ function detectCollision() {
 
     powerUps.forEach((powerUp, powerUpIndex) => {
         if (
-            player.x < powerUp.x + 10 &&
+            player.x < powerUp.x + 50 &&
             player.x + player.width > powerUp.x &&
-            player.y < powerUp.y + 10 &&
+            player.y < powerUp.y + 50 &&
             player.y + player.height > powerUp.y
         ) {
             powerUps.splice(powerUpIndex, 1);

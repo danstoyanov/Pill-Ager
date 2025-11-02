@@ -3,8 +3,8 @@ export default class Enemy {
         this.canvas = canvas;
         this.x = x;
         this.y = y;
-        this.width = 20;
-        this.height = 20;
+        this.width = 50;
+        this.height = 50;
         this.color = color;
         this.speed = 2;
         this.health = health;

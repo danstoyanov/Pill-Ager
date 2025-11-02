@@ -1,17 +1,16 @@
 export default class Projectile {
-    constructor(x, y, dx, dy) {
+    constructor(x, y, dx, dy, image) {
         this.x = x;
         this.y = y;
-        this.width = 5;
-        this.height = 5;
-        this.color = 'yellow';
+        this.width = 20;
+        this.height = 20;
+        this.image = image;
         this.dx = dx;
         this.dy = dy;
     }
 
     draw(ctx) {
-        ctx.fillStyle = this.color;
-        ctx.fillRect(this.x, this.y, this.width, this.height);
+        ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
     }
 
     update() {
