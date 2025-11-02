@@ -11,11 +11,12 @@ canvas.height = 600;
 
 const player = new Player(canvas);
 
+let enemyStandardImage;
+let enemyEliteImage;
 let enemies = [];
 let projectiles = [];
 let powerUps = [];
 let experienceGems = [];
-
 let gameState = 'menu';
 let difficulty = 'normal';
 let spawnInterval;
@@ -27,21 +28,60 @@ const difficultyButton = document.getElementById('difficultyButton');
 const difficultyOptions = document.getElementById('difficultyOptions');
 const quitButton = document.getElementById('quitButton');
 
+startButton.disabled = true;
 startButton.addEventListener('click', startGame);
+
 difficultyButton.addEventListener('click', () => {
     difficultyOptions.style.display = difficultyOptions.style.display === 'none' ? 'block' : 'none';
 });
+
 document.querySelectorAll('.difficulty-option').forEach(button => {
     button.addEventListener('click', (e) => {
         setDifficulty(e.target.dataset.difficulty);
         difficultyOptions.style.display = 'none';
     });
 });
+
 quitButton.addEventListener('click', () => {
     if (confirm('Are you sure you want to quit?')) {
         window.location.reload();
     }
 });
+
+function preloadImages(urls, callback) {
+    let loadedCount = 0;
+    const images = [];
+    urls.forEach((url, index) => {
+        const img = new Image();
+        img.src = url;
+        img.onload = () => {
+            loadedCount++;
+            if (loadedCount === urls.length) {
+                callback(images);
+            }
+        };
+        img.onerror = (err) => {
+            console.error('Error loading image:', url, err);
+        };
+        images[index] = img;
+    });
+}
+
+const imageName = {
+    ENEMY_STANDARD: 0,
+    ENEMY_ELITE: 1,
+}
+
+function initializeGame(images) {
+    enemyStandardImage = images[imageName.ENEMY_STANDARD];
+    enemyEliteImage = images[imageName.ENEMY_ELITE];
+    startButton.disabled = false;
+}
+
+preloadImages([
+    'assets/enemy_standard.png',
+    'assets/enemy_elite.png',
+], initializeGame);
 
 function setDifficulty(newDifficulty) {
     difficulty = newDifficulty;
@@ -89,12 +129,12 @@ function spawnEnemy() {
     if (enemySpawnCounter % 10 === 0) {
         health = 3;
         color = 'purple';
+        enemies.push(new Enemy(canvas, x, y, color, health, enemyEliteImage));
     } else {
         health = 1;
         color = 'red';
+        enemies.push(new Enemy(canvas, x, y, color, health, enemyStandardImage));
     }
-
-    enemies.push(new Enemy(canvas, x, y, color, health));
     enemySpawnCounter++;
 }
 

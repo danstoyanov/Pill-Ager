@@ -1,5 +1,5 @@
 export default class Enemy {
-    constructor(canvas, x, y, color, health, type, image) {
+    constructor(canvas, x, y, color, health, image) {
         this.canvas = canvas;
         this.x = x;
         this.y = y;
@@ -8,7 +8,6 @@ export default class Enemy {
         this.color = color;
         this.speed = 2;
         this.health = health;
-        this.type = type;
         this.image = image;
     }
 
