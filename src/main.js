@@ -17,6 +17,8 @@ let playerImage;
 let projectileImage;
 let powerUpImage;
 let backgroundImage;
+let experienceGemImage; 
+
 let enemies = [];
 let projectiles = [];
 let powerUps = [];
@@ -78,6 +80,7 @@ const imageName = {
     PROJECTILE: 3,
     POWERUP: 4,
     BACKGROUND: 5,
+    EXPERIENCE_GEM: 6 
 }
 
 function initializeGame(images) {
@@ -87,6 +90,7 @@ function initializeGame(images) {
     projectileImage = images[imageName.PROJECTILE];
     powerUpImage = images[imageName.POWERUP];
     backgroundImage = images[imageName.BACKGROUND];
+    experienceGemImage = images[imageName.EXPERIENCE_GEM]; 
     player = new Player(canvas, playerImage);
     startButton.disabled = false;
 }
@@ -98,6 +102,7 @@ preloadImages([
     'assets/projectile.png',
     'assets/powerup_tripleshot.png',
     'assets/main_background.png',
+    'assets/experience_gem.png'
 ], initializeGame);
 
 function setDifficulty(newDifficulty) {
@@ -194,7 +199,6 @@ function shoot() {
 function update() {
     if (gameState === 'playing') {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-
         ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
 
         player.update();
@@ -219,8 +223,7 @@ function update() {
         });
 
         experienceGems.forEach((gem, gemIndex) => {
-            ctx.fillStyle = gem.color;
-            ctx.fillRect(gem.x, gem.y, gem.width, gem.height);
+            ctx.drawImage(experienceGemImage, gem.x, gem.y, gem.width, gem.height);
         });
 
         detectCollision();
@@ -268,7 +271,8 @@ function detectCollision() {
                     if (enemy.color === 'purple') {
                         powerUps.push(new PowerUp(enemy.x, enemy.y, 'tripleShot', powerUpImage));
                     }
-                    experienceGems.push({ x: enemy.x, y: enemy.y, width: 10, height: 10, color: 'lime' });
+                    // <-- MODIFIED: Increased width and height from 10 to 25 -->
+                    experienceGems.push({ x: enemy.x, y: enemy.y, width: 25, height: 25, color: 'lime' });
                     enemies.splice(enemyIndex, 1);
                 }
             }
