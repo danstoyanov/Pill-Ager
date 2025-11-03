@@ -271,7 +271,6 @@ function detectCollision() {
                     if (enemy.color === 'purple') {
                         powerUps.push(new PowerUp(enemy.x, enemy.y, 'tripleShot', powerUpImage));
                     }
-                    // <-- MODIFIED: Increased width and height from 30 to 35 -->
                     experienceGems.push({ x: enemy.x, y: enemy.y, width: 35, height: 35, color: 'lime' });
                     enemies.splice(enemyIndex, 1);
                 }
@@ -380,29 +379,31 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
+// <-- MODIFIED FUNCTION -->
 function keyDown(e) {
-    if (e.key === 'ArrowRight' || e.key === 'd') {
+    if (e.key === 'ArrowRight' || e.code === 'KeyD') {
         player.moveRight();
-    } else if (e.key === 'ArrowLeft' || e.key === 'a') {
+    } else if (e.key === 'ArrowLeft' || e.code === 'KeyA') {
         player.moveLeft();
-    } else if (e.key === 'ArrowUp' || e.key === 'w') {
+    } else if (e.key === 'ArrowUp' || e.code === 'KeyW') {
         player.moveUp();
-    } else if (e.key === 'ArrowDown' || e.key === 's') {
+    } else if (e.key === 'ArrowDown' || e.code === 'KeyS') {
         player.moveDown();
     }
 }
 
+// <-- MODIFIED FUNCTION -->
 function keyUp(e) {
     if (
-        (e.key === 'ArrowRight' || e.key === 'd') && player.dx > 0 ||
-        (e.key === 'ArrowLeft' || e.key === 'a') && player.dx < 0
+        (e.key === 'ArrowRight' || e.code === 'KeyD') && player.dx > 0 ||
+        (e.key === 'ArrowLeft' || e.code === 'KeyA') && player.dx < 0
     ) {
         player.stopX();
     }
 
     if (
-        (e.key === 'ArrowUp' || e.key === 'w') && player.dy < 0 ||
-        (e.key === 'ArrowDown' || e.key === 's') && player.dy > 0
+        (e.key === 'ArrowUp' || e.code === 'KeyW') && player.dy < 0 ||
+        (e.key === 'ArrowDown' || e.code === 'KeyS') && player.dy > 0
     ) {
         player.stopY();
     }
