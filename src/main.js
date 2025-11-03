@@ -271,8 +271,8 @@ function detectCollision() {
                     if (enemy.color === 'purple') {
                         powerUps.push(new PowerUp(enemy.x, enemy.y, 'tripleShot', powerUpImage));
                     }
-                    // <-- MODIFIED: Increased width and height from 10 to 25 -->
-                    experienceGems.push({ x: enemy.x, y: enemy.y, width: 25, height: 25, color: 'lime' });
+                    // <-- MODIFIED: Increased width and height from 30 to 35 -->
+                    experienceGems.push({ x: enemy.x, y: enemy.y, width: 35, height: 35, color: 'lime' });
                     enemies.splice(enemyIndex, 1);
                 }
             }
