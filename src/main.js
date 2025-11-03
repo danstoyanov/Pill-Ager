@@ -379,7 +379,6 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// <-- MODIFIED FUNCTION -->
 function keyDown(e) {
     if (e.key === 'ArrowRight' || e.code === 'KeyD') {
         player.moveRight();
@@ -392,7 +391,6 @@ function keyDown(e) {
     }
 }
 
-// <-- MODIFIED FUNCTION -->
 function keyUp(e) {
     if (
         (e.key === 'ArrowRight' || e.code === 'KeyD') && player.dx > 0 ||
