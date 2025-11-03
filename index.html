@@ -1,24 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pill-ager</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
     <div id="mainMenu">
         <h1>Pill-ager</h1>
-        <button id="startButton">Start Game</button>
-        <div class="difficulty-container">
+        <div id="menuControls">
+            <button id="startButton">Start Game</button>
             <button id="difficultyButton">Difficulty</button>
             <div id="difficultyOptions" style="display: none;">
                 <button class="difficulty-option" data-difficulty="easy">Easy</button>
                 <button class="difficulty-option" data-difficulty="normal">Normal</button>
                 <button class="difficulty-option" data-difficulty="hard">Hard</button>
             </div>
+            <button id="quitButton">Quit</button>
         </div>
-        <button id="quitButton">Quit</button>
     </div>
-    <canvas id="gameCanvas" style="display: none;"></canvas>
+
+    <!-- The canvas is now inside a styled container -->
+    <div id="gameContainer" style="display: none;">
+        <canvas id="gameCanvas"></canvas>
+    </div>
+
     <script type="module" src="src/main.js"></script>
 </body>
 </html>
