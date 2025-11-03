@@ -29,6 +29,8 @@ let spawnInterval;
 let enemySpawnCounter = 0;
 
 const mainMenu = document.getElementById('mainMenu');
+// NEW: Get the game container element
+const gameContainer = document.getElementById('gameContainer'); 
 const startButton = document.getElementById('startButton');
 const difficultyButton = document.getElementById('difficultyButton');
 const difficultyOptions = document.getElementById('difficultyOptions');
@@ -124,10 +126,14 @@ function getSpawnRate() {
     }
 }
 
+// MODIFIED FUNCTION
 function startGame() {
     gameState = 'playing';
     mainMenu.style.display = 'none';
-    canvas.style.display = 'block';
+    
+    // We now show the container, not the canvas directly
+    gameContainer.style.display = 'block'; 
+
     spawnInterval = setInterval(spawnEnemy, getSpawnRate());
     setInterval(shoot, 1000);
     document.addEventListener('keydown', keyDown);
@@ -379,7 +385,6 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// <-- MODIFIED FUNCTION -->
 function keyDown(e) {
     if (e.key === 'ArrowRight' || e.code === 'KeyD') {
         player.moveRight();
@@ -392,7 +397,6 @@ function keyDown(e) {
     }
 }
 
-// <-- MODIFIED FUNCTION -->
 function keyUp(e) {
     if (
         (e.key === 'ArrowRight' || e.code === 'KeyD') && player.dx > 0 ||
